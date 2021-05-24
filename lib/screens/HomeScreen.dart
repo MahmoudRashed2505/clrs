@@ -1,7 +1,13 @@
 import 'package:clrs/screens/ResultScreen.dart';
+import 'package:clrs/widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  void _goNext(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => ResultScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,29 +71,20 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 150),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 1),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ResultScreen()));
-                  },
-                  child: Text(
-                    "Select Photo",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                padding: const EdgeInsets.only(top: 150),
+                child: RoundedButton(
+                  child: Center(
+                    child: Text(
+                      "Select Photo",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-                ),
-              ),
-            )
+                  btnWidth: 0.5,
+                  action: _goNext,
+                ))
           ],
         ),
       ),

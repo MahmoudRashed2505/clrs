@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:clrs/models/responseFields.dart';
 import 'package:clrs/screens/HomeScreen.dart';
 import 'package:clrs/widgets/GradientText.dart';
+import 'package:clrs/widgets/RoundedButton.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -29,6 +31,14 @@ class _ResultScreenState extends State<ResultScreen> {
   void initState() {
     super.initState();
     getImage();
+  }
+
+  void _goHome(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
   }
 
   void _save(BuildContext context) {
@@ -184,85 +194,55 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 80),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 1),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            _save(context);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Save Photo",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Icon(
-                                Icons.download_outlined,
+                      child: RoundedButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Save Photo",
+                              style: TextStyle(
                                 color: Colors.white,
-                                size: 25,
+                                fontSize: 20,
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.download_outlined,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ],
                         ),
+                        action: _save,
+                        btnWidth: 0.5,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 50),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 1),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
+                      child: RoundedButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GradientText(
+                              'Colorize',
+                            ),
+                            Text(
+                              "  Another Photo",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
                               ),
-                            );
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GradientText(
-                                'Colorize',
-                              ),
-                              Text(
-                                "  Another Photo",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
+                        action: _goHome,
+                        btnWidth: 0.7,
                       ),
                     ),
                   ],
                 )),
     );
   }
-}
-
-class RespondFields {
-  final String fileName;
-  final String base64Image;
-  RespondFields({@required this.fileName, @required this.base64Image});
-  String get name => fileName;
-  String get data => base64Image;
 }
